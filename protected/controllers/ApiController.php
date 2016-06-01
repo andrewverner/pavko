@@ -16,26 +16,21 @@ class ApiController extends Controller
             $this->_json(['error' => 1, 'errCode' => 100]);
             return;
         }
-        $model = User::model()->findByAttributes([
-            'phone' => $data['phone']
-        ]);
-        if (!$model) {
-            $model = new User();
-            $model->setAttributes($data);
-            if ($model->validate()) {
-                $model->save();
-            } else {
-                $this->_json([
-                    'error' => 1,
-                    'errCode' => 101,
-                    'errors' => $model->errors
-                ]);
-                return;
-            }
+        $model = new User();
+        $model->setAttributes($data);
+        if ($model->validate()) {
+            $model->save();
+        } else {
+            $this->_json([
+                'error' => 1,
+                'errCode' => 101,
+                'errors' => $model->errors
+            ]);
+            return;
         }
 
         $code = rand(100000,999999);
-        Yii::app()->sms->send("Ваш код: $code",$model->phone);
+        //Yii::app()->sms->send("Ваш код: $code",$model->phone);
 
         $this->_json([
             'error' => 0,
@@ -43,6 +38,11 @@ class ApiController extends Controller
             'code' => $code,
             'errCode' => 200,
         ]);
+    }
+
+    public function actionAuthForm()
+    {
+        if (Yii::app()->params['testMode']) $this->render('auth', ['model' => new User()]);
     }
 
     public function actionAppeal()
@@ -55,6 +55,7 @@ class ApiController extends Controller
         $model = new Appeal();
         $model->setAttributes($data);
         if ($model->validate()) {
+            //@todo upload a file
             $model->save();
         } else {
             $this->_json([
