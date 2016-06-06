@@ -30,6 +30,7 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('phone', 'required'),
 			array('region_id', 'numerical', 'integerOnly'=>true),
 			array('last_name, first_name, middle_name', 'length', 'max'=>255),
 			array('phone', 'length', 'max'=>45),
@@ -107,5 +108,11 @@ class User extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function beforeSave()
+	{
+		$this->reg_time = new CDbExpression('NOW()');
+		return parent::beforeSave();
 	}
 }

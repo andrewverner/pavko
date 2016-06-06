@@ -31,6 +31,8 @@ class Appeal extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('text, email', 'required'),
+			array('email', 'email'),
 			array('user_id', 'numerical', 'integerOnly'=>true),
 			array('category, city, address, file', 'length', 'max'=>255),
 			array('email', 'length', 'max'=>45),

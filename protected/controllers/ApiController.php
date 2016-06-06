@@ -11,7 +11,8 @@ class ApiController extends Controller
 
     public function actionAuth()
     {
-        $data = Yii::app()->request->getPost('User');
+        //$data = Yii::app()->request->getPost('User');
+        $data = $_REQUEST['User'];
         if (!$data) {
             $this->_json(['error' => 1, 'errCode' => 100]);
             return;
@@ -47,7 +48,10 @@ class ApiController extends Controller
 
     public function actionAppeal()
     {
-        $data = Yii::app()->request->getPost('Appeal');
+        $data = $_REQUEST['Appeal'];
+        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($data,true),FILE_APPEND);
+        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($_FILES,true),FILE_APPEND);
+        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',file_get_contents('php://input'),FILE_APPEND);
         if (!$data) {
             $this->_json(['error' => 1, 'errCode' => 100]);
             return;
@@ -55,7 +59,9 @@ class ApiController extends Controller
         $model = new Appeal();
         $model->setAttributes($data);
         if ($model->validate()) {
-            //@todo upload a file
+            if (!empty($_FILES)) {
+        	if (move_uploaded_file($_FILES['file']['tmp_name'],'/var/www/pavko/data/www/690000.ru/attaches/'.$_FILES['file']['name'])) $model->file = $_FILES['file']['name'];
+            }
             $model->save();
         } else {
             $this->_json([
@@ -77,6 +83,15 @@ class ApiController extends Controller
     {
         header('Content-Type: application/json');
         echo CJSON::encode($data);
+    }
+
+    public function actionE()
+    {
+        $email = Yii::app()->email;
+        $email->to = 'andrewverner85@gmail.com';
+        $email->subject = 'Hello';
+        $email->message = 'Hello <strong>brother</strong>';
+        var_dump($email->send());
     }
 
 }

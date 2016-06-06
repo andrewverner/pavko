@@ -7,8 +7,8 @@ return array(
 
 	'connectionString' => 'mysql:host=localhost;dbname=android',
 	'emulatePrepare' => true,
-	'username' => 'root',
-	'password' => '',
+	'username' => 'android',
+	'password' => 'Wvxcx5qI',
 	'charset' => 'utf8',
 
 );
