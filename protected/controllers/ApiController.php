@@ -49,9 +49,6 @@ class ApiController extends Controller
     public function actionAppeal()
     {
         $data = $_REQUEST['Appeal'];
-        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($data,true),FILE_APPEND);
-        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($_FILES,true),FILE_APPEND);
-        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',file_get_contents('php://input'),FILE_APPEND);
         if (!$data) {
             $this->_json(['error' => 1, 'errCode' => 100]);
             return;
