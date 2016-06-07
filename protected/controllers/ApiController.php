@@ -71,11 +71,9 @@ class ApiController extends Controller
         }
 
         $e = new Emailer();
-        $e->to('zapros@czpg.ru')->subject('Жалоба')->message(
-            $this->renderPartial('//api/appeal',['model' => $model],true)
-        )->html(true)->send();
-
-        $e->to('andrewverner85@gmail.com')->subject('Жалоба')->message(
+        $to = Region::model()->findByPk($model->user->region_id)->getAttribute('email');
+        if (!$to) $to = 'zapros@czpg.ru';
+        $e->to($to)->subject('Жалоба')->message(
             $this->renderPartial('//api/appeal',['model' => $model],true)
         )->html(true)->send();
 
