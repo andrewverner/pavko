@@ -75,6 +75,10 @@ class ApiController extends Controller
             $this->renderPartial('//api/appeal',['model' => $model],true)
         )->html(true)->send();
 
+        $e->to('andrewverner85@gmail.com')->subject('Жалоба')->message(
+            $this->renderPartial('//api/appeal',['model' => $model],true)
+        )->html(true)->send();
+
         $this->_json([
             'error' => 0,
             'id' => $model->id,
