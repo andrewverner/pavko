@@ -188,31 +188,4 @@ class Emailer extends CComponent {
         return $answer;
     }
 
-    public function style() {
-        $this->_msg = <<<HTML
-<div style="width:100%;background:#eeeeee;">
-    <div style="margin: auto; width: 700px; padding: 50px 30px;background-color: #ffffff;">
-        <table style="width:100%;border-collapse:collapse;">
-            <tr>
-                <td style="width:420px;">
-                    <a href="http://nazapaske.ru/"><img src="http://nazapaske.ru/images/logo.png" /></a>
-                </td>
-                <td style="width:220px;text-align: right;vertical-align: middle;">
-                    8 (800) 550-76-10<br />
-                    8 (863) 275-76-10<br /><br />
-                    344091 г.Ростов-на-Дону, ул.Краснодарская 2-я, дом 80/14
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="padding:15px 0;">
-                    $this->_msg
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-HTML;
-        return $this;
-    }
-
 }
