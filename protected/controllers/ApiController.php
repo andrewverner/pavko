@@ -11,7 +11,7 @@ class ApiController extends Controller
 
     public function actionAuth()
     {
-        //$data = Yii::app()->request->getPost('User');
+        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($_REQUEST),FILE_APPEND);
         $data = $_REQUEST['User'];
         if (!$data) {
             $this->_json(['error' => 1, 'errCode' => 100]);
@@ -48,6 +48,7 @@ class ApiController extends Controller
 
     public function actionAppeal()
     {
+        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($_REQUEST),FILE_APPEND);
         $data = $_REQUEST['Appeal'];
         if (!$data) {
             $this->_json(['error' => 1, 'errCode' => 100]);
@@ -57,7 +58,7 @@ class ApiController extends Controller
         $model->setAttributes($data);
         if ($model->validate()) {
             if (!empty($_FILES)) {
-        	if (move_uploaded_file($_FILES['file']['tmp_name'],'/var/www/pavko/data/www/690000.ru/attaches/'.$_FILES['file']['name'])) $model->file = $_FILES['file']['name'];
+        	    if (move_uploaded_file($_FILES['file']['tmp_name'],'/var/www/pavko/data/www/690000.ru/attaches/'.$_FILES['file']['name'])) $model->file = $_FILES['file']['name'];
             }
             $model->save();
         } else {
