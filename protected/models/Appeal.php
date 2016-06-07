@@ -113,4 +113,9 @@ class Appeal extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function getUser()
+	{
+		return User::model()->findByPk($this->user_id);
+	}
 }
