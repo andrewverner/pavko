@@ -69,7 +69,12 @@ class ApiController extends Controller
             ]);
             return;
         }
-        //@todo send an email
+
+        $e = new Emailer();
+        $e->to('zapros@czpg.ru')->subject('Жалоба')->message(
+            $this->renderPartial('//api/appeal',['model' => $model],true)
+        )->html(true)->send();
+
         $this->_json([
             'error' => 0,
             'id' => $model->id,
