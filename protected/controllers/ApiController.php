@@ -11,7 +11,7 @@ class ApiController extends Controller
 
     public function actionAuth()
     {
-        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($_REQUEST),FILE_APPEND);
+        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($_REQUEST,true),FILE_APPEND);
         $data = $_REQUEST['User'];
         if (!$data) {
             $this->_json(['error' => 1, 'errCode' => 100]);
@@ -48,7 +48,7 @@ class ApiController extends Controller
 
     public function actionAppeal()
     {
-        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($_REQUEST),FILE_APPEND);
+        @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($_REQUEST,true),FILE_APPEND);
         $data = $_REQUEST['Appeal'];
         if (!$data) {
             $this->_json(['error' => 1, 'errCode' => 100]);
