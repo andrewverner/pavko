@@ -31,7 +31,7 @@ class ApiController extends Controller
         }
 
         $code = rand(100000,999999);
-        //Yii::app()->sms->send("Ваш код: $code",$model->phone);
+        Yii::app()->sms->send("Ваш код: $code",$model->phone);
 
         $this->_json([
             'error' => 0,
