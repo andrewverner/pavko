@@ -6,6 +6,7 @@
  * Time: 4:34 PM
  *
  * @var $model Appeal
+ * @var $file File
  */
 ?>
 
@@ -25,9 +26,15 @@
     <tr>
         <td></td><td><?php echo $model->text ?></td>
     </tr>
-    <?php if ($model->file) : ?>
+    <?php if ($model->files) : ?>
     <tr>
-        <td></td><td><?php echo CHtml::image("http://690000.ru/attaches/{$model->file}") ?></td>
+        <td></td><td>
+            <ul>
+            <?php foreach ($model->files as $file) : ?>
+                <li><?php echo CHtml::link($file->name,"http://690000.ru/attaches/{$file->name}") ?></li>
+            <?php endforeach; ?>
+            </ul>
+        </td>
     </tr>
     <?php endif; ?>
 </table>

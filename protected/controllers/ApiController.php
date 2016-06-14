@@ -58,9 +58,6 @@ class ApiController extends Controller
         $model = new Appeal();
         $model->setAttributes($data);
         if ($model->validate()) {
-            if (!empty($_FILES)) {
-        	    if (move_uploaded_file($_FILES['file']['tmp_name'],'/var/www/pavko/data/www/690000.ru/attaches/'.$_FILES['file']['name'])) $model->file = $_FILES['file']['name'];
-            }
             $model->save();
         } else {
             $this->_json([
@@ -69,6 +66,18 @@ class ApiController extends Controller
                 'errors' => $model->errors
             ]);
             return;
+        }
+
+        if (!empty($_FILES)) {
+            foreach ($_FILES as $file) {
+                if (move_uploaded_file($file['tmp_name'],'/var/www/pavko/data/www/690000.ru/attaches/'.$file['name'])) {
+                    $file = new File();
+                    $file->setAttributes([
+                        'name' => $file['name'],
+                        'appeal_id' => $model->id,
+                    ]);
+                }
+            }
         }
 
         $e = new Emailer();

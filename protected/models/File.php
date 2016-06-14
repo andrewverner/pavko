@@ -1,26 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "appeal".
+ * This is the model class for table "file".
  *
- * The followings are the available columns in table 'appeal':
+ * The followings are the available columns in table 'file':
  * @property integer $id
- * @property integer $user_id
- * @property string $category
- * @property string $city
- * @property string $address
- * @property string $text
- * @property string $file
- * @property string $email
+ * @property string $name
+ * @property integer $appeal_id
  */
-class Appeal extends CActiveRecord
+class File extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'appeal';
+		return 'file';
 	}
 
 	/**
@@ -31,15 +26,12 @@ class Appeal extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, email', 'required'),
-			array('email', 'email'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
-			array('category, city, address, file', 'length', 'max'=>255),
-			array('email', 'length', 'max'=>45),
-			array('text', 'safe'),
+			array('name, appeal_id', 'required'),
+			array('appeal_id', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, category, city, address, text, file, email', 'safe', 'on'=>'search'),
+			array('id, name, appeal_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,13 +53,8 @@ class Appeal extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
-			'category' => 'Category',
-			'city' => 'City',
-			'address' => 'Address',
-			'text' => 'Text',
-			'file' => 'File',
-			'email' => 'Email',
+			'name' => 'Name',
+			'appeal_id' => 'Appeal',
 		);
 	}
 
@@ -90,13 +77,8 @@ class Appeal extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('category',$this->category,true);
-		$criteria->compare('city',$this->city,true);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('text',$this->text,true);
-		$criteria->compare('file',$this->file,true);
-		$criteria->compare('email',$this->email,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('appeal_id',$this->appeal_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,20 +89,10 @@ class Appeal extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Appeal the static model class
+	 * @return File the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-
-	public function getUser()
-	{
-		return User::model()->findByPk($this->user_id);
-	}
-
-	public function getFiles()
-	{
-		return File::model()->findByAttributes(['appeal_id' => $this->id]);
 	}
 }
