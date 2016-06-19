@@ -29,8 +29,8 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Login', 'url'=>array(Yii::app()->createUrl('/site/login')), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array(Yii::app()->createUrl('/site/logout')), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Login', 'url'=>array(Yii::app()->createUrl('/index.php/site/login')), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array(Yii::app()->createUrl('/index.php/site/logout')), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
 	</div><!-- mainmenu -->

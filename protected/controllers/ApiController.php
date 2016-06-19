@@ -110,4 +110,28 @@ class ApiController extends Controller
         var_dump($email->send());
     }
 
+    public function actionGetRegion($id)
+    {
+        $region = Region::model()->findByPk($id);
+        if ($region) {
+            $users = User::model()->findByAttributes(['region_id' => $id]);
+            if ($users) {
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename='.$region->name.'.csv');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                foreach ($users as $user) {
+                    echo "{$user->id};{$user->region_id};{$user->last_name};{$user->first_name};{$user->middle_name};{$user->phone};{$user->reg_time};";
+                }
+                exit;
+            }
+            else
+                echo "Пользователей в данном регионе нет ($region->name)";
+        }
+        else
+            echo "Неверный регион";
+    }
+
 }
