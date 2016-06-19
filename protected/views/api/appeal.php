@@ -9,10 +9,6 @@
  * @var $file File
  */
 ?>
-
-*************************************************************<br />
-ID <?php echo $model->id ?> / <?php echo $model->category ?><br />
-*************************************************************<br />
 ID <?php echo $model->id ?> / <?php echo $model->category ?> / <?php echo $model->user->last_name ?> <?php echo $model->user->first_name ?> <?php echo $model->user->middle_name ?> /
 <?php echo $model->user->phone ?> / <?php echo $model->email ?><br /><br />
 <?php echo $model->text; ?><br /><br />
