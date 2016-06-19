@@ -10,7 +10,7 @@
  */
 ?>
 ID <?php echo $model->id ?> / <?php echo $model->category ?> / <?php echo $model->user->last_name ?> <?php echo $model->user->first_name ?> <?php echo $model->user->middle_name ?> /
-<?php echo $model->user->phone ?> / <?php echo $model->email ?><br /><br />
+<?php echo $model->user->phone ?> / <?php echo $model->email ?> / <?php echo $model->city ?> / <?php echo $model->address ?><br /><br />
 <?php echo $model->text; ?><br /><br />
 
 <?php if ($model->files) : ?>

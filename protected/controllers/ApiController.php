@@ -82,9 +82,9 @@ class ApiController extends Controller
         }
 
         $e = new Emailer();
-        $to = Region::model()->findByPk($model->user->region_id)->getAttribute('email');
-        if (!$to) $to = 'zapros@czpg.ru';
-        $e->to($to)->subject("{$model->id} {$model->category}")->message(
+        $region = Region::model()->findByPk($model->user->region_id);
+        if (!$region->email) $to = 'zapros@czpg.ru'; else $to = $region->email;
+        $e->to($to)->subject("{$model->id} {$model->category} {$region->name}")->message(
             $this->renderPartial('//api/appeal',['model' => $model],true)
         )->html(true)->send();
 
@@ -114,16 +114,13 @@ class ApiController extends Controller
     {
         $region = Region::model()->findByPk($id);
         if ($region) {
-            $users = User::model()->findByAttributes(['region_id' => $id]);
+            $users = User::model()->findAllByAttributes(['region_id' => $id]);
             if ($users) {
-                header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream');
                 header('Content-Disposition: attachment; filename='.$region->name.'.csv');
-                header('Expires: 0');
-                header('Cache-Control: must-revalidate');
-                header('Pragma: public');
                 foreach ($users as $user) {
-                    echo "{$user->id};{$user->region_id};{$user->last_name};{$user->first_name};{$user->middle_name};{$user->phone};{$user->reg_time};";
+                    echo "{$user->id};{$user->region_id};{$user->last_name};{$user->first_name};{$user->middle_name};{$user->phone};
+";
                 }
                 exit;
             }
