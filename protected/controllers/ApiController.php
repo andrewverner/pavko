@@ -76,6 +76,7 @@ class ApiController extends Controller
                         'name' => $file['name'],
                         'appeal_id' => $model->id,
                     ]);
+                    $file->save();
                 }
             }
         }

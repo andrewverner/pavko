@@ -10,31 +10,15 @@
  */
 ?>
 
-<table>
-    <tr>
-        <td></td><td><?php echo $model->user->last_name ?> <?php echo $model->user->first_name ?> <?php echo $model->user->middle_name ?></td>
-    </tr>
-    <tr>
-        <td></td><td><?php echo $model->category ?></td>
-    </tr>
-    <tr>
-        <td></td><td><?php echo $model->city ?></td>
-    </tr>
-    <tr>
-        <td></td><td><?php echo $model->address ?></td>
-    </tr>
-    <tr>
-        <td></td><td><?php echo $model->text ?></td>
-    </tr>
-    <?php if ($model->files) : ?>
-    <tr>
-        <td></td><td>
-            <ul>
-            <?php foreach ($model->files as $file) : ?>
-                <li><?php echo CHtml::link($file->name,"http://690000.ru/attaches/{$file->name}") ?></li>
-            <?php endforeach; ?>
-            </ul>
-        </td>
-    </tr>
-    <?php endif; ?>
-</table>
+*************************************************************<br />
+ID <?php echo $model->id ?> / <?php echo $model->category ?><br />
+*************************************************************<br />
+ID <?php echo $model->id ?> / <?php echo $model->category ?> / <?php echo $model->user->last_name ?> <?php echo $model->user->first_name ?> <?php echo $model->user->middle_name ?> /
+<?php echo $model->user->phone ?> / <?php echo $model->user->email ?><br /><br />
+<?php echo $model->text; ?><br /><br />
+
+<ul>
+<?php foreach ($model->files as $file) : ?>
+    <li><?php echo CHtml::link($file->name,"http://690000.ru/attaches/{$file->name}") ?></li>
+<?php endforeach; ?>
+</ul>
