@@ -121,6 +121,6 @@ class Appeal extends CActiveRecord
 
 	public function getFiles()
 	{
-		return File::model()->findByAttributes(['appeal_id' => $this->id]);
+		return File::model()->findAllByAttributes(['appeal_id' => $this->id]);
 	}
 }

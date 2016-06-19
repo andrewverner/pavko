@@ -71,12 +71,12 @@ class ApiController extends Controller
         if (!empty($_FILES)) {
             foreach ($_FILES as $file) {
                 if (move_uploaded_file($file['tmp_name'],'/var/www/pavko/data/www/690000.ru/attaches/'.$file['name'])) {
-                    $file = new File();
-                    $file->setAttributes([
+                    $fileModel = new File();
+                    $fileModel->setAttributes([
                         'name' => $file['name'],
                         'appeal_id' => $model->id,
                     ]);
-                    $file->save();
+                    if (!$fileModel->validate() || !$fileModel->save()) @file_put_contents('/var/www/pavko/data/www/690000.ru/protected/runtime/input.log',print_r($file->errors,true),FILE_APPEND);
                 }
             }
         }
